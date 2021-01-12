@@ -5,22 +5,24 @@ import PropTypes from 'prop-types';
 class DealList extends Component {
   static propTypes = {
     deals: PropTypes.array.isRequired,
+    onItemPress: PropTypes.func.isRequired,
   };
   render() {
     return (
       <View style={styles.list}>
-        {/* {this.props.deals.map((deal) => {
-          return <Text key={deal.key}>{deal.title}</Text>;
-        })} */}
         <FlatList
           data={this.props.deals}
-          renderItem={({item}) => <DealItem deal={item}>{item.title}</DealItem>}
+          renderItem={({item}) => (
+            <DealItem deal={item} onPress={this.props.onItemPress}>
+              {item.title}
+            </DealItem>
+          )}
         />
       </View>
     );
   }
 }
 const styles = StyleSheet.create({
-  list: {backgroundColor: '#eee', flex: 1, width: '100%', paddingTop: 50},
+  list: {backgroundColor: '#eee', flex: 1, width: '100%', paddingTop: 5},
 });
 export default DealList;

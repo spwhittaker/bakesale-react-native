@@ -1,18 +1,25 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, Image} from 'react-native';
+import {Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
 import {priceDisplay} from '../util';
 class DealItem extends Component {
-  static propTypes = {deal: PropTypes.object.isRequired};
+  static propTypes = {
+    deal: PropTypes.object.isRequired,
+
+    onPress: PropTypes.func.isRequired,
+  };
+  handlePress = () => {
+    this.props.onPress(this.props.deal.key);
+  };
   render() {
     const {deal} = this.props;
     return (
-      <View style={styles.DealContainer}>
+      <TouchableOpacity style={styles.DealContainer} onPress={this.handlePress}>
         <Image source={{uri: deal.media[0]}} style={styles.image} />
         <Text style={styles.title}>{deal.title}</Text>
         <Text style={styles.text}>{priceDisplay(deal.price)}</Text>
         <Text style={styles.text}>{deal.cause.name}</Text>
-      </View>
+      </TouchableOpacity>
     );
   }
 }
